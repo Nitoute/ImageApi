@@ -19,7 +19,7 @@ class lectureImg(Resource):
         tablo.update({i:file_list[i]})
     
     def get(self):
-        return json.dumps(tablo)
+        return tablo
 
 api.add_resource(lectureImg, '/images')
 
