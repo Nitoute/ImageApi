@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_restful import Resource, Api
 import os
+import json
 
 app = Flask(__name__)
 api = Api(app)
@@ -18,9 +19,9 @@ class lectureImg(Resource):
         tablo.update({i:file_list[i]})
     
     def get(self):
-        return tablo
+        return json.dumps(tablo)
 
-api.add_resource(lectureImg, '/')
+api.add_resource(lectureImg, '/images')
 
 if __name__ == '__main__':
     app.run(debug=True)
