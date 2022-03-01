@@ -7,9 +7,9 @@ app = Flask(__name__)
 api = Api(app)
 
 tablo = {}
+path = "./images"
 
 def init(table):
-    path = "./images"
     file_list = os.listdir(path)
     absp = os.getcwd() #chemin du répertoire de travail
     for i in range (0,len(file_list)):
@@ -35,6 +35,7 @@ class supprimerImg(Resource):
         imgASuprim=tablo[int(img_id)]
         print("img à supprimé :",imgASuprim)
         tablo.pop(int(img_id),None)
+        os.remove(path+'/'+imgASuprim)
         print("nouveau tableau :",tablo)
         return tablo
 
