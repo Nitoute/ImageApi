@@ -8,18 +8,27 @@ api = Api(app)
 
 tablo = {}
 
-class lectureImg(Resource):
-    print("test")
+def init(table):
     path = "./images"
     file_list = os.listdir(path)
     absp = os.getcwd() #chemin du répertoire de travail
-    print(file_list)
-    
     for i in range (0,len(file_list)):
-        tablo.update({i:file_list[i]})
+        table.update({i:file_list[i]})
+
+
+init(tablo)
+print(tablo)
+
+class lectureImg(Resource):
     
     def get(self):
         return tablo
+
+    def post(self):
+        pass
+
+    def delete(self):
+        pass
 
 api.add_resource(lectureImg, '/images')
 
