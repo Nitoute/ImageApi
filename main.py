@@ -27,10 +27,19 @@ class lectureImg(Resource):
     def post(self):
         pass
 
-    def delete(self):
-        pass
+class supprimerImg(Resource):
+
+    def delete(self,img_id):
+        print(img_id)
+        print("ancien tableau :",tablo)
+        imgASuprim=tablo[int(img_id)]
+        print("img à supprimé :",imgASuprim)
+        tablo.pop(int(img_id),None)
+        print("nouveau tableau :",tablo)
+        return tablo
 
 api.add_resource(lectureImg, '/images')
+api.add_resource(supprimerImg, '/images/<img_id>')
 
 if __name__ == '__main__':
     app.run(debug=True)
