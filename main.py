@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask,request
 from flask_restful import Resource, Api
 import os
 import json
@@ -24,8 +24,7 @@ class lectureImg(Resource):
     def get(self):
         return tablo
 
-    def post(self):
-        pass
+
 
 class supprimerImg(Resource):
 
@@ -39,8 +38,13 @@ class supprimerImg(Resource):
         print("nouveau tableau :",tablo)
         return tablo
 
+class AddImg(Resource):
+    def post(self,data):
+
+        pass
+
 api.add_resource(lectureImg, '/images')
 api.add_resource(supprimerImg, '/images/<img_id>')
-
+api.add_resource(AddImg, '/imagesUpload/<data>')
 if __name__ == '__main__':
     app.run(debug=True)
