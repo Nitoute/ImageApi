@@ -13,18 +13,24 @@ tablo = {}
 path = "./images"
 def init(table):
     file_list = os.listdir(path)
-    absp = os.getcwd() #chemin du répertoire de travail
+
     for i in range (0,len(file_list)):
         table.update({i+1:file_list[i]})
     
 
-init(tablo)
 print(tablo)
 
 class lectureImg(Resource):
     
-    def get(self):
-        print("tabloget",tablo)
+    def get(self,client_nom):
+
+        tablo.clear()
+        path_dir=path+"/"+client_nom
+
+        file_list = os.listdir(path_dir)
+
+        for i in range (0,len(file_list)):
+            tablo.update({i+1:file_list[i]})
         return tablo
 
 
@@ -68,7 +74,7 @@ class AddImg(Resource):
             print("tablo retourné :",tablo)
             return tablo
 
-api.add_resource(lectureImg, '/images')
+api.add_resource(lectureImg, '/images/<client_nom>')
 api.add_resource(supprimerImg, '/images/<img_id>')
 api.add_resource(AddImg, '/imagesUpload/<img_nom>')
 api.add_resource(imgAfficher, '/imagesAfficher/<img_id>')
