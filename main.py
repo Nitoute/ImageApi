@@ -11,7 +11,6 @@ api = Api(app)
 
 tablo = {}
 path = "./images"
-index=0
 def init(table):
     file_list = os.listdir(path)
     absp = os.getcwd() #chemin du répertoire de travail
@@ -25,6 +24,7 @@ print(tablo)
 class lectureImg(Resource):
     
     def get(self):
+        print("tabloget",tablo)
         return tablo
 
 
