@@ -12,7 +12,7 @@ path = "./images"
 
 
 def refaireTab(table, client_nom):
-
+    tablo.clear()
     path_dir = path + "/" + client_nom
     file_list = os.listdir(path_dir)
     for i in range(0, len(file_list)):
@@ -46,7 +46,7 @@ class initLectureImg(Resource):
 class lectureImg(Resource):
 
     def get(self, client_nom):
-
+        
         tablo.clear()
         refaireTab(tablo, client_nom)
         return tablo
@@ -55,6 +55,8 @@ class lectureImg(Resource):
 class ImageListApi(Resource):
 
     def delete(self, client_nom, img_id):
+        print(img_id)
+        refaireTab(tablo, client_nom)
         print("ancien tableau :", tablo)
         imgASuprim = tablo[int(img_id)]
         print("img à supprimé :", imgASuprim)
@@ -66,15 +68,16 @@ class ImageListApi(Resource):
         return tablo
 
     def get(self, client_nom, img_id):
-
+        refaireTab(tablo, client_nom)
         imgAEnvoi = path + '/' + client_nom + '/' + tablo[int(img_id)]
         return send_file(imgAEnvoi, mimetype='image/gif')
 
-    def post(self, client_nom, img_nom):
+    def post(self, client_nom, img_id):
+        refaireTab(tablo, client_nom)
         tablValu = tablo.values()
-        if (img_nom in tablValu):
+        if (img_id in tablValu):
             print("fichier déja existant")
-            return -1
+            return tablo
         else:
             print("le fichier n'existe pas je l'ajoute !")
             parse = reqparse.RequestParser()
@@ -83,15 +86,15 @@ class ImageListApi(Resource):
                                location="files")
             args = parse.parse_args()
             imgFile = args['file']
-            imgFile.save(os.path.join("images/" + client_nom, img_nom))
-            tablo.update({len(tablo) + 1: img_nom})
+            imgFile.save(os.path.join("images/" + client_nom, img_id))
+            tablo.update({len(tablo) + 1: img_id})
             print("tablo retourné :", tablo)
             return tablo
 
 
 api.add_resource(initLectureImg, '/images')
 api.add_resource(lectureImg, '/images/<client_nom>')
-api.add_resource(ImageListApi, '/images/<client_nom>/<img_id>')
+api.add_resource(ImageListApi, '/ImageListApi/<client_nom>/<img_id>')
 
 
 if __name__ == '__main__':
