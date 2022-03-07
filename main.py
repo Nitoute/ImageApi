@@ -31,6 +31,7 @@ def init(table):
             index += 1
         table.update({i: index})
         index = 0
+    
 
 
 class initLectureImg(Resource):
@@ -51,7 +52,7 @@ class lectureImg(Resource):
         return tablo
 
 
-class supprimerImg(Resource):
+class ImageListApi(Resource):
 
     def delete(self, client_nom, img_id):
         print("ancien tableau :", tablo)
@@ -64,16 +65,10 @@ class supprimerImg(Resource):
         print("nouveau tableau :", tablo)
         return tablo
 
-
-class imgAfficher(Resource):
-
     def get(self, client_nom, img_id):
 
         imgAEnvoi = path + '/' + client_nom + '/' + tablo[int(img_id)]
         return send_file(imgAEnvoi, mimetype='image/gif')
-
-
-class AddImg(Resource):
 
     def post(self, client_nom, img_nom):
         tablValu = tablo.values()
@@ -96,9 +91,8 @@ class AddImg(Resource):
 
 api.add_resource(initLectureImg, '/images')
 api.add_resource(lectureImg, '/images/<client_nom>')
-api.add_resource(supprimerImg, '/images/<client_nom>/<img_id>')
-api.add_resource(AddImg, '/imagesUpload/<client_nom>/<img_nom>')
-api.add_resource(imgAfficher, '/imagesAfficher/<client_nom>/<img_id>')
+api.add_resource(ImageListApi, '/images/<client_nom>/<img_id>')
+
 
 if __name__ == '__main__':
     app.run(debug=True)
