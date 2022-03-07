@@ -1,8 +1,6 @@
-from logging import raiseExceptions
-from flask import Flask, request
+from flask import Flask
 from flask_restful import Resource, Api, reqparse
 import os
-import json
 from flask import send_file
 import werkzeug
 
