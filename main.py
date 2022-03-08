@@ -10,8 +10,12 @@ api = Api(app)
 tablo = {}
 path = "./images"
 
-# prend 2 arguments: un tableau(tableau courant), un client nom (le client en cours de traitement)
-# fonction qui réécrit le tableau en fonction du nom du client (affiche la page du client)
+# prend 2 arguments: un tableau(tableau courant),
+# un client nom (le client en cours de traitement)
+# fonction qui réécrit le tableau en fonction du nom du client
+# (affiche la page du client)
+
+
 def refaireTab(table, client_nom):
     tablo.clear()
     path_dir = path + "/" + client_nom
@@ -22,6 +26,8 @@ def refaireTab(table, client_nom):
 
 # prend 1 argument: un tableau(tableau courant)
 # fonction qui permet d'afficher la page d'acceuil
+
+
 def init(table):
     index = 0
     file_list = os.listdir(path)
@@ -34,9 +40,12 @@ def init(table):
             index += 1
         table.update({i: index})
         index = 0
-    
 
-#get qui permet au clique de l'utilisateur sur Clients de retourner à la page d'acceuil
+
+# get qui permet au clique de l'utilisateur
+# sur 'Clients' de retourner à la page d'acceuil
+
+
 class initLectureImg(Resource):
 
     def get(self):
@@ -45,22 +54,33 @@ class initLectureImg(Resource):
         init(tablo)
         return tablo
 
+
 # prend 1 argument: le nom du client(le client voulu)
-#get qui permet au clique de l'utilisateur sur un des pseudos des clients de retourner la page du client
+# get qui permet au clique de l'utilisateur
+# sur un des pseudos des clients de retourner la page du client
+
+
 class lectureImg(Resource):
 
     def get(self, client_nom):
-        
         tablo.clear()
         refaireTab(tablo, client_nom)
         return tablo
 
 
+# prend 2 arguments: le nom du client(le client voulu),
+# l'image id (index de l'image à traiter)
 
-# prend 2 arguments: le nom du client(le client voulu), l'image id (index de l'image à traiter)
-#delete qui permet au clique de l'utilisateur sur l'icone poubelle d'une image de supprimer l'image
-#get qui permet au clique de l'utilisateur un nom d'image d'obtenir une prévisualisation de l'image
-#post qui permet de récupérer une image d'un utilisateur pour la mettre dans le repertoire du client
+# delete qui permet au clique de l'utilisateur
+# sur l'icone poubelle d'une image de supprimer l'image
+
+# get qui permet au clique de l'utilisateur
+# un nom d'image d'obtenir une prévisualisation de l'image
+
+# post qui permet de récupérer une image d'un utilisateur
+# pour la mettre dans le repertoire du client
+
+
 class ImageListApi(Resource):
 
     def delete(self, client_nom, img_id):
